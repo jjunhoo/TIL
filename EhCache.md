@@ -1,4 +1,4 @@
-#### Ehcache 
+#### EhCache
 
 - Spring Cache의 대표 
 - 동일한 요청이 들어오면 복잡한 잡업을 수행해서 결과를 만드는 대신 이미 보관된 결과를 바로 돌려주는 방식 
@@ -171,6 +171,7 @@ public class MemberRepositoryImpl implements MemberRepository {
   }
 }
 ````
-
-
+**@Cacheable(value="findMemberCache", key="#name")**
+- ehcache.xml에서 지정한 'findMemberCache' 캐시를 사용하겠다는 의미이며, key는 메소드 argument인 name을 사용하겠다는 의미 (즉 name에 따라 별도 캐시)
+- 'findByNameCache'메소드의 argument에 따라 캐시되기 때문에 name이 'TestName1', 'TestName2'
 
