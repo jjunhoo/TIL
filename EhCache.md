@@ -64,3 +64,56 @@ CacheManager 확인하는 코드
 </ehcache>
 ````
 - 위 캐시 설정 xml 파일에서 가장 중요한 부분은 캐시 이름인 'findMemberCache'으로 내가 캐시하고 싶은 메서드에 'findMemberCache'를 지정하면 설정이 적용됨
+
+**Application.java**
+````java
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@SpringBootApplication 
+@EnableCaching  // Annotation을 사용한 Cache 기능 활성화
+@Controller
+public class Application {
+  private static Logger logger = LoggerFactory.getLogger(Application.class);
+  
+  @Autowired
+  MemberRepository memberRepository
+  
+  @GetMapping("/member/nocache/{name}")
+  @ResponseBody
+  public Member getNoCacheMember(@PathVariable String name) {
+    long start = System.currentTimeMillis();                // 수행시간 측정 
+    Member member = memberRepository.findByNameCache(name); // DB 조회 
+    long end   = System.currentTimeMillis();
+    
+    logger.info(name+ "의 NoCache 수행시간 : "+ Long.toString(end-start));    
+    
+    return member;
+  }
+  
+  @GetMapping("/member/cache/{name}")
+  @ResponseBody
+  public Member getCacheMember(@PathVariable String name) {  
+    long start = System.currentTimeMillis();                // 수행시간 측정 
+    Member member = memberRepository.findByNameCache(name); // DB 조회 
+    long end   = System.currentTimeMillis();
+    
+    logger.info(name+ "의 Cache 수행시간 : "+ Long.toString(end-start));    
+    
+    return member;
+  }
+  
+  @GetMapping('')
+  
+}
+````
+
+
