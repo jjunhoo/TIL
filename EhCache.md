@@ -79,7 +79,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @SpringBootApplication 
-@EnableCaching  // Annotation을 사용한 Cache 기능 활성화
+@EnableCaching  // Annotation을 사용하여 Cache 기능 활성화
 @Controller
 public class Application {
   private static Logger logger = LoggerFactory.getLogger(Application.class);
@@ -111,9 +111,66 @@ public class Application {
     return member;
   }
   
-  @GetMapping('')
+  @GetMapping('/member/refresh/{name}')
+  @ResponseBody
+  public String refresh(@PathVariable String name) {
+    memberRepository.refresh(name); // 캐시 제거 
+    return "cache clear!";
+  }
   
+  public static void main(String[] args) {
+    SpringApplication.run(Application.class, args);
+  } 
+  
+  @GetMapping("/")
+  @ResponseBody
+  public String index() {
+    return "Hello world";
+  }
 }
 ````
+
+
+**MemberRepositoryImpl**
+```` java
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+
+@Repository
+public class MemberRepositoryImpl implements MemberRepository {
+  private static Logger logger = LoggerFactory.getLogger(MemberRepositoryImpl.class);
+
+  @Override
+  public Member findByNameNoCache(String name) { 
+    slowQuery(2000); 
+    return new Member(0, name + "@gmail.com", name);
+  }
+  
+  @Override
+  @Cacheable(value="findMemberCache", key="#name")
+  public Member findByNameCache(String name) { 
+    slowQuery(2000);
+    return new Member(0, name + "@gmail.com", name);
+  }
+  
+  @Override
+  @CacheEvict(value = "findMemberCache", key="#name")
+  public void refresh(String name) { 
+    logger.info(name + " Cache clear ! ");
+  }
+  
+  // Big Query 실행 가정 
+  private void slowQuery(long seconds) { 
+    try {
+      Thread.sleep(seconds);
+    } catch(InterruptedException e) { 
+      throw new IllegalStateException(e);
+    }
+  }
+}
+````
+
 
 
