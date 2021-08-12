@@ -100,3 +100,34 @@
     - 1개 이상의 EBS 스냅샷 또는 인스턴스 저장 지원 AMI의 경우, 인스턴스의 루트 볼륨에 대한 템플릿(예 : 운영 체제, 애플리케이션 서버, 애플리케이션)
     - AMI를 사용하여 인스턴스를 시작할 수 있는 AWS 계정을 제어하는 시작 권한
     - 시작될 때 인스턴스에 연결할 볼륨을 지정하는 블록 디바이스 매핑
+
+### Security Group
+- Security Group 은 인스턴스에 대한 인바운드 및 아웃바운드 트래픽을 제어하는 가상 방화벽 역할을 한다. VPC에서 인스턴스를 시작할 대, 최대 5개의 보안 그룹에 인스턴스를 할당할 수 있다. 보안 그룹은 서브넷 수준이 아니라 인스턴스 수준에서 작동하므로 VPC에 있는 서브넷의 각 인스턴스를 서로 다른 보안 그룹 세트에 할당할 수 있다. 시작할 떄 특정 그룹을 지정하지 않으면, 인스턴스가 자동으로 VPC의 기본 보안 그룹에 할당된다.
+- 보안 장치
+    - Network Access Control List(NACL) 와 함께 방화벽의 역할을 하는 서비스
+- Port 허용
+    - 트래픽이 지나갈 수 있는 Port 와 Source 설정 가능
+    - Deny 는 불가능 (특정 포트) -> NACL 로 가능
+- 인스턴스 단위 
+    - 하나의 인스턴스에 하나 이상의 SG 설정 가능
+    - NACL의 경우 서브넷 단위
+    - 설정된 인스턴스는 설정한 모든 SG의 룰을 적용 받음
+- Stateful
+    - 인바운드로 들어온 트래픽은 별 다른 아웃바운드 설정 없이 나갈 수 있다.
+    
+### Elastic Load Balancer (ELB)
+- Elastic Load Balancer 는 들어오는 어플리케이션 트래픽을 EC2 인스턴스, 컨테이너, IP 주소, Lambda 함수와 같은 여러 대상에 자동으로 분산시킨다. Elastic Load Balancer 는 단일 가용 영역 또는 여러 가용 영역에서 다양한 어플리케이션 부하를 처리할 수 있다. Elastic Load Balancer 이 제공하는 3가지 로드 밸런서는 모두 어플리케이션의 내결함성에 필요한 고가용성, 자동 확장/축소, 강력한 보안을 갖추고 있다.
+- IP 가 지속적으로 바뀜
+    - 지속적으로 IP가 바뀌기 때문에 도메인 기반으로 사용해야 함
+- Health Check
+    - 직접 트래픽을 발생시켜 인스턴스가 살아있는지를 체크함
+    - In Service (서비스가 살아있는 상태), Out of Service (서비스가 죽은 상태) 두가지 상태로 나누어짐
+- 3가지 종류
+    - Application Load Balancer
+        - Application Level (OSI 7계층 - 7계층)
+    - Network Load Balancer
+        - Network  Level (OSI 7계층 - 3계층)
+    - Classic Load Balancer
+- Sticky Session
+    - 인스턴스가 여러 대 있을 때, 최초로 session 이 생성된 인스턴스로 트래픽을 보낸다.
+    - ELB 에 session 정보를 쿠키로 적재 (Sticky Session 지속 시간 설정 가능)
