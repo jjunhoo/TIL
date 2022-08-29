@@ -1,0 +1,62 @@
+## 자바와 스프링에서 찾아보는 패턴
+
+- 자바
+  - java.util.Enumeration 과 java.util.Iterator
+  - java StAX (Streaming API for XML) 의 Iterator 기반 API 
+    - XmlEventReader, XmlEventWriter
+
+- 스프링
+  - CompositeIterator
+
+
+````java
+public class IteratorInJava {
+    public static void main(String[] args) throws FileNotFoundException, XMLStreamException {
+        Enumeration enumeration;
+        Iterator iterator;
+        
+        Board board = new Board();
+        board.addPost("디자인 패턴 게임");
+        board.addPost("디자인 패턴 하나 학습하시겠습니까?");
+        
+        // Iterator - java8 
+        board.getPosts().iterator().forEachRemaining(p -> System.out.println(p.getTitle()));
+        
+        // StAX 
+        XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
+        XMLEventReader reader = xmlInputFactory.createXMLEventReader(new FileInputStream("Book.xml"));
+        
+        while (reader.hasNext()) {
+            XMLEvent nextEvent = reader.nextEvent();
+            
+            if (nextEvent.isStartElement()) {
+                StartElement startElement = nextEvent.asStartElement();
+                QName name = startElement.getName();
+                
+                if (name.getLocalPart().eqauls("book")) {
+                    Attribute title = startElement.getAttributeByName(new QName("title")); // 오징어 게임, 숨바꼭질
+                    System.out.println(title.getValue());
+                }
+            }
+        }
+    }
+}
+````
+
+````xml
+// Book.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<books>
+    <book title="오징어 게임"/>
+    <book title="숨바꼭질"/>
+</books>
+````
+
+````java
+// Spring 
+public class IteratorInSpring {
+    public static void main(String[] args) {
+        CompositeIterator iterator; 
+    }
+}
+````
