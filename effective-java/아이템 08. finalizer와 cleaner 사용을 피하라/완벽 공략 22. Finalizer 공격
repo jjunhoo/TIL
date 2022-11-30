@@ -1,0 +1,117 @@
+## 완벽 공략 22. Finalizer 공격
+
+> 만들다 만 객체를 finalize 메소드에서 사용하는 방법
+
+- Finalizer 공격
+- 방어하는 방법
+  - final 클래스로 만들거나
+    - 상위 클래스 (Account) class 키워드 앞에 final 키워드를 사용하여 상속할 수 없도록 막는다
+  - finalize() 메소드를 오버라이딩 한 다음 final 을 붙여서 하위 클래스에서 오버라이딩 할 수 없도록 막는다
+    - 상위 클래스 (Account) 에 finalize() 메소드를 오버라이드 하여 final 키워드로 하위 클래스에서 오버라이드 할 수 없도록 막는다 
+
+
+````java
+// Finalizer 공격 전
+// 하위 클래스
+public class BrokenAccount extends Account {
+    
+    public BrokenAccount(String accountId) {
+        super(accountId);
+    }
+    
+}
+
+// 상위 클래스
+public class Account {
+    
+    private String accountId;
+    
+    public Account(String accountId) {
+        this.accountId = accountId;
+        
+        if (accountId.equals("푸틴")) {
+            throw new IllegalArgumentException("푸틴은 계정을 막습니다");
+        }
+    }
+    
+    public void transfer(BigDecimal amount, String to) {
+        System.out.println("transfer %f from %s to %s\n", amount, accountId, to);
+    }
+}
+
+// 푸틴 계정을 막는 테스트 
+class AccountTest {
+    
+    @Test
+    void 일반_계정() {
+        Account account = new Account("tom");
+        account.transfer(BigDecimal.valueOf(100), "brown");
+    }
+
+    @Test
+    void 푸틴_계정() {
+        Account account = new Account("푸틴"); // IllegalArgumentException 발생
+        account.transfer(BigDecimal.valueOf(100), "brown");
+    }
+}
+````
+
+````java
+// Finalizer 공격
+// 하위 클래스
+public class BrokenAccount extends Account {
+
+    public BrokenAccount(String accountId) {
+        super(accountId);
+    }
+  
+    // finalize 오버라이드
+    @Override
+    protected void finalize() throws Throwable {
+        this.transfer(BigDecimal.valueOf(100), "brown");
+    }
+}
+
+// 상위 클래스
+public class Account {
+
+    private String accountId;
+  
+    public Account(String accountId) {
+        this.accountId = accountId;
+  
+        if (accountId.equals("푸틴")) {
+            throw new IllegalArgumentException("푸틴은 계정을 막습니다");
+        }
+    }
+  
+    public void transfer(BigDecimal amount, String to) {
+        System.out.println("transfer %f from %s to %s\n", amount, accountId, to);
+    }
+}
+
+// 푸틴 계정 차단 우회 테스트 
+class AccountTest {
+
+    @Test
+    void 일반_계정() {
+        Account account = new Account("tom");
+        account.transfer(BigDecimal.valueOf(100), "brown");
+    }
+  
+    @Test
+    void 푸틴_계정() {
+        Account account = null;
+        
+        try {
+            account = new BrokenAccount("푸틴"); // IllegalArgumentException 발생
+        } catch (Exception e) {
+            System.out.println("이러면?"); // IllegalArgumentException 을 catch 후 아래 gc 코드 진행
+        }
+        
+        System.gc(); // GC 발생 및 BrokenAccount 클래스의 finalize() 메소드를 실행하면서 transfer 메소드 실행
+      
+        Thread.sleep(3000L);
+    }
+}
+````
