@@ -95,5 +95,7 @@ server.port = 8084
 
 ### 6. pinpoint-web 확인
 
+- agent 추가 유무 및 request 확인 
+
 ![이미지](image/img6.png)
 ![이미지](image/img7.png)
