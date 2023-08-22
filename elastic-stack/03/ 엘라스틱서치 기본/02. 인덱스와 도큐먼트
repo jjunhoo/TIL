@@ -1,0 +1,84 @@
+## 2. 인덱스와 도큐먼트
+
+- `인덱스`
+  - 도큐먼트를 저장하는 논리적 구분자
+- `도큐먼트`
+  - 실제 데이터를 저장하는 단위
+- REST API 를 통하여 인덱스에 도큐먼트를 추가할 수 있는데, 이러한 작업을 `문서를 색인화` 한다고 지칭
+
+![img.png](https://github.com/jjunhoo/TIL/blob/43ce87ee7aed212c5414af7ca2d9589d1b0a565b/elastic-stack/image/img26.png)
+
+### 2-1. 도큐먼트
+
+> 도큐먼트는 엘라스틱서치에서 `데이터가 저장되는 기본 단위`로 `JSON 형태`
+
+- 하나의 도큐먼트는 여러 `필드`와 `값`을 가짐
+
+> 엘라스틱서치와 관계형 데이터베이스 비교
+
+- 데이터
+
+````text
+name: mike
+age: 25
+gender: male
+````
+
+- 관계형 데이터베이스
+
+````sql
+CREATE TABLE member (
+    uid int not null AUTO_INCREMENT PRIMARY KEY,
+    name varchar(50) not null,
+    age int not null,
+    gender varchar(6) not null
+);
+
+INSERT INTO member (name, age, gender) VALUES ("mike", 25, "male");
+````
+
+- 엘라스틱서치
+
+````json
+{
+    "name": "mike",
+    "age": 25,
+    "gender": "male"
+}
+````
+
+- 필드 : name, age, gender
+- 값 : mike, 25, male
+- 데이터 타입 : name (text), gender (text), 25 (int)
+
+![img.png](https://github.com/jjunhoo/TIL/blob/43ce87ee7aed212c5414af7ca2d9589d1b0a565b/elastic-stack/image/img27.png)
+
+> MySQL 과 엘라스틱서치 비교
+
+- MySQL | 엘라스틱서치
+  - 테이블 | 인덱스
+  - 레코드 | 도큐먼트
+  - 컬럼 | 필드
+  - 스키마 | 매핑
+
+### 2-2. 인덱스
+
+> 인덱스는 `도큐먼트를 저장하는 논리적 단위`로 관계형 데이터베이스의 `테이블`과 유사한 개념
+
+- 동일한 인덱스에 있는 도큐먼트인 경우, `동일한 스키마를 갖음`
+- 모든 도큐먼트는 `하나의 인덱스에 포함`되어야 함
+
+> 스키마에 따른 그룹핑
+
+- 일반적으로 스키마에 따라 인덱스를 구분
+  - 회원 정보 도큐먼트와 장바구니 도큐먼트는 성격이 다르기 떄문에 데이터 스키마도 다름
+  - 회원 정보에는 회원 이름이나 나이 같은 필드 사용
+  - 장바구니 정보에는 상품명이나 날짜 같은 필드 사용
+    - `서로 다른 스키마를 가진 도큐먼트를 하나의 인덱스에 저장하는 방법은 바람직하지 않음`
+
+> 관리 목적의 그룹핑
+
+- 기본적으로 인덱스는 용량이나 숫자 제한 없이 `무한대의 도큐먼트 포함 가능`
+  - 하지만, 인덱스가 커지면 검색 시, 많은 도큐먼트를 참조해야하기 때문에 성능이 나빠짐
+  - 따라서, ES 운영 시 `인덱스 용량 제한`을 두게 됨
+- 기본적으로 `특정 도큐먼트 개수에 도달`하거나 `특정 용량`을 넘어서면 `인덱스를 분리`
