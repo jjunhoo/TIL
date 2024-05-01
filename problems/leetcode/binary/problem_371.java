@@ -21,8 +21,17 @@ public class problem_371 {
      b = 6 : 0110
      */
     private static int getSum(int a, int b) {
+        
+        while (b != 0) {
+            int carry = a & b; // AND 연산
+            System.out.println("carry : " + carry);
 
+            a = a ^ b; // XOR 연산
+            System.out.println("a : " + a);
 
+            b = carry << 1; // LEFT SHIFT 연산 (비트를 왼쪽으로 1칸씩 이동하는 경우, 곱하기 2)
+            System.out.println("b : " + b);
+        }
 
         return a;
     }
