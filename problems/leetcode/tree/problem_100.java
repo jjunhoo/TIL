@@ -14,16 +14,10 @@ public class problem_100 {
         q.left = p2;
         q.right = p3;
 
-        System.out.println("[] " + p.val + " / " + p.left.val + " / " + p.right.val + " / [] : " + q.val + " / " + q.left.val + " / " + q.right.val);
-        System.out.println("[] " + p2.val + " / " + p3.val);
-
-
         isSameTree(p, q);
     }
 
     public static boolean isSameTree(TreeNode p, TreeNode q) {
-
-        // System.out.println("[p - TreeNode] : " + p.val + " / [q - TreeNode] : " + q.val);
 
         // 두 트리가 모두 비어 있으면 같다고 간주
         if (p == null && q == null) {
