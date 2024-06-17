@@ -24,8 +24,24 @@ public class problem_20 {
      * - Output: false
      */
     private static boolean valid(String str) {
+        char[] arr = str.toCharArray();
 
-        return false;
+        Stack<Character> stack = new Stack<>();
+
+        for (char ch : arr) {
+
+            if (ch == '(') {
+                stack.push(')');
+            } else if (ch == '{') {
+                stack.push('}');
+            } else if (ch == '[') {
+                stack.push(']');
+            } else if (stack.isEmpty() || stack.pop() != ch) {
+                return false;
+            }
+        }
+
+        return stack.isEmpty();
     }
 
 }
