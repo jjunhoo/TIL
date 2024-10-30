@@ -1,51 +1,34 @@
 package algorithm.do_it.datastructure;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * https://www.acmicpc.net/problem/11659
+ */
 public class P11659 {
-    /* 입력
-       5 3
-
-       5 4 3 2 1
-
-       1 3
-       2 4
-       5 5
-     */
-    /*
-       12
-       9
-       1
-     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         int N = scanner.nextInt(); // 입력 숫자 개수
         int M = scanner.nextInt(); // 출력 횟수
 
-        int[] arr = new int[N];
-        int[] result = new int[M];
+        int[] arr = new int[N + 1];
 
-        for (int i = 0; i < N; i++) {
-            arr[i] = scanner.nextInt();
+        for (int i = 1; i <= N; i++) {
+            int num = scanner.nextInt();
+            arr[i] = arr[i - 1] + num;
         }
 
-        System.out.println("[N] : " + N + " / [M] : " + M + " / ARRAY : " + Arrays.toString(arr));
-
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < M; i++) {
             int a = scanner.nextInt();
             int b = scanner.nextInt();
 
-            for (int j = a; j <= b; j++) {
-                if (a == b) {
-                    result[i] = arr[j - 1];
-                    continue;
-                }
-                result[i] += arr[j - 1];
-            }
+            sb.append(arr[b] - arr[a - 1]).append("\n");
         }
 
         scanner.close();
+
+        System.out.println(sb);
     }
 }
