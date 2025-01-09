@@ -1,0 +1,31 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" version="26.0.4">
+  <diagram name="페이지-1" id="A0lgYUrgWVtNkSHbzreq">
+    <mxGraphModel dx="3216" dy="819" grid="1" gridSize="9" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Rj7mv3h1HLrzenm89eo2-1" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://img.stackshare.io/service/7328/plsql.png;fontSize=12;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="-1143" y="504" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="mCVqu2bLrBZ-CdVfJ8SJ-1" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://img.stackshare.io/service/1026/jT-HJYJg.png;" vertex="1" parent="1">
+          <mxGeometry x="-1143" y="288" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="mCVqu2bLrBZ-CdVfJ8SJ-3" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;상품 판매상태 변경&lt;/span&gt;" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="mCVqu2bLrBZ-CdVfJ8SJ-1" target="Rj7mv3h1HLrzenm89eo2-1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="-1071" y="333" as="sourcePoint" />
+            <mxPoint x="-991" y="333" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mCVqu2bLrBZ-CdVfJ8SJ-4" value="AI팀 System" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="-1541" y="303" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="mCVqu2bLrBZ-CdVfJ8SJ-5" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;상품 이미지 OCR 추출 및 Risk 상품 데이터 적재&lt;/span&gt;" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="mCVqu2bLrBZ-CdVfJ8SJ-4" target="mCVqu2bLrBZ-CdVfJ8SJ-1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="-1389" y="327.40999999999997" as="sourcePoint" />
+            <mxPoint x="-1175" y="328" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
