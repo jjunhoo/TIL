@@ -5,6 +5,12 @@ package algorithm.codility.iterations;
  * - binary 변환
  * - binary 내에서 1과 1 사이의 갭 즉, 0의 개수가 가장 많은 구간 찾기
  *
+ * 시간복잡도 : O(log N)
+ * - 이진 문자열 변환 - O(log N)
+ * - 이진 문자열 순회하면서 가장 긴 0의 연속된 길이 탐색 - O(log N)
+ * 공간복잡도 : O(log N)
+ * - 이진 문자열을 저장 - O(log N)
+ *
  * A binary gap within a positive integer N is any maximal sequence of consecutive zeros that is surrounded by ones at both ends in the binary representation of N.
  *
  * For example, number 9 has binary representation 1001 and contains a binary gap of length 2.
