@@ -1,4 +1,4 @@
-package algorithm.codility.StacksAndQueues;
+package algorithm.codility.stacks_and_queues;
 
 import java.util.Stack;
 
