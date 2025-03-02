@@ -2,7 +2,10 @@ package algorithm.codility.time_complexity;
 
 /**
  * 문제
+ * - 부분합 (왼쪽 부분 합, 오른쪽 부분 합)
  *
+ * 시간복잡도
+ * - totalSum 계산 - O(N)
  *
  * A non-empty array A consisting of N integers is given. Array A represents numbers on a tape.
  *
