@@ -4,6 +4,9 @@ import java.util.HashSet;
 
 /**
  * 문제
+ * - Set(집합) 중복 값 제거
+ * 시간복잡도 - O(N)
+ * 공간복잡도 - O(N)
  *
  * Write a function
  *
