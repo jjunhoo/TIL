@@ -43,8 +43,19 @@ public class CountDiv {
         System.out.println(solution(6, 11, 2)); // 3 (6, 8, 10)
         System.out.println(solution(10, 20, 5)); // 3 (10, 15, 20)
         System.out.println(solution(1, 1000000000, 100)); // 10000000
+
+        System.out.println(solution2(6, 11, 2)); // 3 (6, 8, 10)
+        System.out.println(solution2(10, 20, 5)); // 3 (10, 15, 20)
+        System.out.println(solution2(1, 1000000000, 100)); // 10000000
     }
 
+    /**
+     * 풀이 1
+     * @param A
+     * @param B
+     * @param K
+     * @return
+     */
     private static int solution(int A, int B, int K) {
         // 1. B / K는 1부터 B까지 K로 나누어 떨어지는 숫자의 개수
         // 2. A / K는 1부터 A-1까지 K로 나누어 떨어지는 숫자의 개수
@@ -52,5 +63,19 @@ public class CountDiv {
         // (A - 1) / K → 5 / 2 = 2 → {2, 4} (1~5 중 2의 배수 개수)
         // 즉, 1~11의 배수 개수에서 1~5의 배수 개수를 빼면 → 5 - 2 = 3 → {6, 8, 10}
         return (B / K) - ((A - 1) / K);
+    }
+
+    /**
+     * 풀이 2
+     * @param start
+     * @param end
+     * @param divisor
+     * @return
+     */
+    private static int solution2(int start, int end, int divisor) {
+        int divisibleUpToEnd = end / divisor;
+        int divisibleBeforeStart = (start - 1) / divisor;
+
+        return divisibleUpToEnd - divisibleBeforeStart;
     }
 }
