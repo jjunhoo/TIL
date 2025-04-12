@@ -1,7 +1,19 @@
 package algorithm.codility.prime_and_composite_numbers;
 
 /**
- * 문제
+ * 예
+ * - N : 36
+ * - N의 제곱근 값 : 6
+ *
+ * 1 × 36
+ * 2 × 18
+ * 3 × 12
+ * 4 × 9
+ * 6 × 6 => 제곱근값 이후로는 위에 값들로 짝을 이루기 때문에 제곱근까지만 확인하면 효율적 (단, 제곱근 값은 +1만 적용)
+ * 9 × 4
+ * 12 × 3
+ * 18 × 2
+ * 36 × 1
  *
  * A positive integer D is a factor of a positive integer N if there exists an integer M such that N = D * M.
  *
