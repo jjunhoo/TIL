@@ -145,7 +145,7 @@ public class CountNonDivisible {
 
             for (int j = 1; j * j <= num; j++) { // 1부터 √num까지 num의 약수들을 찾음
                 if (num % j == 0) { // j가 num의 약수인 경우에만 진행 (예: num = 6이면 → j = 1, 2, 3에서 성립)
-                    int other = num / j; // 현재값의 약수 쌍이 되는 값 추출
+                    int other = num / j; // 현재값의 약수 쌍이 되는 값 추출 (num = 12, j = 3이면 → other = 12 / 3 = 4 → 즉, (3, 4)는 12의 짝지어진 약수 쌍)
                     total += count[j]; // 현재값 약수 카운팅
 
                     if (j != other) { // 현재값의 약수 쌍이 되는 값 카운팅
