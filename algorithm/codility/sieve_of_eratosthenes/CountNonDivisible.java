@@ -154,7 +154,7 @@ public class CountNonDivisible {
                 }
             }
 
-            result[i] = N - total;
+            result[i] = N - total; // N (전체 배열 요소 개수) - total (A[i]의 약수) == result[i] (A[i]의 비약수)
         }
 
         return result;
