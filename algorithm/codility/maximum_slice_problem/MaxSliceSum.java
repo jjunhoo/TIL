@@ -2,6 +2,8 @@ package algorithm.codility.maximum_slice_problem;
 
 /**
  * 문제
+ * - 카데인 알고리즘
+ * - 연속된 부분합에서, 이전까지의 합이 이득이면 이어가고 손해면 버리며 최대 합을 찾는 알고리즘
  *
  * A non-empty array A consisting of N integers is given. A pair of integers (P, Q), such that 0 ≤ P ≤ Q < N, is called a slice of array A. The sum of a slice (P, Q) is the total of A[P] + A[P+1] + ... + A[Q].
  *
