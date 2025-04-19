@@ -7,8 +7,8 @@ import java.util.List;
 public class AliquotCountAndPlus {
 
     public static void main(String[] args) {
-        System.out.println("result : " + solution(13, 17)); // 43
-        System.out.println("result : " + solution(24, 27)); // 52
+        System.out.println(solution(13, 17)); // 43
+        System.out.println(solution(24, 27)); // 52
     }
 
     public static int solution(int left, int right) {
