@@ -1,4 +1,4 @@
-package algorithm.programmers;
+package algorithm.programmers.algorithm;
 
 import java.util.Arrays;
 
