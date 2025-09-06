@@ -119,7 +119,7 @@ public class EquiLeader {
         for (int K = 0; K < N; K++) {
             if (A[K] == candidate) {
                 leftCount++;
-                rightCount++;
+                rightCount--;
             }
 
             if (leftCount > (K + 1) / 2 && rightCount > (N - K - 1) / 2) {
