@@ -1,5 +1,8 @@
 package algorithm.codility.time_complexity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * 문제
  * - 등차수열을 이용한 합 계산 : sum(N) = N * (N + 1) / 2
@@ -63,8 +66,12 @@ public class PermMissingElem {
     public static void main(String[] args) {
         int[] A = {2, 3, 1, 5, 6}; // 1부터 6까지 숫자 중 4 누락
         System.out.println(solution(A));  // 4
+        System.out.println(solution2(A));  // 4
+        System.out.println(solution3(A));  // 4
+        System.out.println(solution4(A));  // 4
     }
 
+    // 수학적 접근
     private static int solution(int[] A) {
         int N = A.length + 1;
         int totalSum = N * (N + 1) / 2; // 등차수열을 이용한 1부터 N까지의 합
@@ -76,5 +83,61 @@ public class PermMissingElem {
 
         // 빠진 숫자는 두 합의 차이
         return totalSum - arraySum;
+    }
+
+    // boolean 배열 사용
+    public static int solution2(int[] A) {
+        boolean[] present = new boolean[A.length + 2];
+        
+        // 배열의 숫자들을 표시
+        for (int num : A) {
+            present[num] = true;
+        }
+        
+        // 누락된 숫자 찾기
+        for (int i = 1; i <= A.length + 1; i++) {
+            if (!present[i]) {
+                return i;
+            }
+        }
+        
+        return -1;
+    }
+
+    // XOR 연산 사용
+    public static int solution3(int[] A) {
+        int N = A.length + 1;
+        int xor = 0;
+        
+        // 1부터 N까지 XOR
+        for (int i = 1; i <= N; i++) {
+            xor ^= i;
+        }
+        
+        // 배열의 모든 숫자와 XOR
+        for (int num : A) {
+            xor ^= num;
+        }
+        
+        return xor;
+    }
+
+    // HashSet 사용
+    public static int solution4(int[] A) {
+        Set<Integer> set = new HashSet<>();
+        
+        // 배열의 모든 숫자를 Set에 추가
+        for (int num : A) {
+            set.add(num);
+        }
+        
+        // 1부터 N+1까지 확인
+        for (int i = 1; i <= A.length + 1; i++) {
+            if (!set.contains(i)) {
+                return i;
+            }
+        }
+        
+        return -1; // 이론적으로 도달하지 않음
     }
 }
